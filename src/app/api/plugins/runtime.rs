@@ -79,6 +79,10 @@ impl App {
                 link_handler_id.clone(),
             ));
         }
+        let (pane_rows, pane_cols) = self.state.estimate_pane_size();
+        env.push(("HERDR_PANE_COLS".to_string(), pane_cols.to_string()));
+        env.push(("HERDR_PANE_ROWS".to_string(), pane_rows.to_string()));
+
         if self.state.plugin_commands_in_flight >= MAX_PLUGIN_COMMANDS_IN_FLIGHT {
             let message = format!(
                 "maximum concurrent plugin commands reached ({MAX_PLUGIN_COMMANDS_IN_FLIGHT})"
